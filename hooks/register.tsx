@@ -3,17 +3,17 @@ import type { EngineInterface, ModelUsage, Register } from 'claude-code'
 
 import type { Agente, Fase, Flujo, TareaPlan } from '../types'
 
-// OptimizerSen6: elige el modelo de cada subagente según la tarea (sin gastar
+// Optimizer Model: elige el modelo de cada subagente según la tarea (sin gastar
 // tokens en decidirlo), registra las herramientas de progreso que usa /flujo y
 // dibuja un panel con un muñeco Claude por agente y una barra sobre el prompt.
 
-const PANE = 'optimizersen6'
-const TITULO_PANEL = 'OptimizerSen6'
-const agentes = atom({ plugin: 'optimizersen6', key: 'agentes' } as const, [])
-const flujo = atom({ plugin: 'optimizersen6', key: 'flujo' } as const, null)
-const ahora = atom({ plugin: 'optimizersen6', key: 'ahora' } as const, 0)
-const costoSesion = atom({ plugin: 'optimizersen6', key: 'costoSesion' } as const, 0)
-const isActivo = atom({ plugin: 'optimizersen6', key: 'isActivo' } as const, true)
+const PANE = 'optimizer-model'
+const TITULO_PANEL = 'Optimizer Model'
+const agentes = atom({ plugin: 'optimizer-model', key: 'agentes' } as const, [])
+const flujo = atom({ plugin: 'optimizer-model', key: 'flujo' } as const, null)
+const ahora = atom({ plugin: 'optimizer-model', key: 'ahora' } as const, 0)
+const costoSesion = atom({ plugin: 'optimizer-model', key: 'costoSesion' } as const, 0)
+const isActivo = atom({ plugin: 'optimizer-model', key: 'isActivo' } as const, true)
 
 // --- Niveles de obrero -------------------------------------------------------
 
@@ -27,7 +27,7 @@ const MODELO_NIVEL: Record<string, [string, string]> = {
   fable: ['claude-fable-5-1', 'high'],
 }
 
-// `optimizersen6:obrero-ligero` → `ligero`; '' para cualquier otro tipo.
+// `optimizer-model:obrero-ligero` → `ligero`; '' para cualquier otro tipo.
 function nivelDe(tipo: string): string {
   const pelado = tipo.replace(/^[^:]*:/, '')
   const n = pelado.replace(/^obrero-/, '')
@@ -87,7 +87,7 @@ const POR_COMANDO: [RegExp, string][] = [
 ]
 
 function herramienta(tool: string, input: Record<string, unknown>): string {
-  if (tool.startsWith('mcp__optimizersen6__')) return ''
+  if (tool.startsWith('mcp__optimizer-model__')) return ''
   if (tool.startsWith('mcp__llms__') || /gemini/i.test(tool)) return 'Gemini (API)'
   if (tool.startsWith('mcp__Claude_Browser__')) return 'Navegador'
   if (tool.startsWith('mcp__claude-in-chrome__')) return 'Chrome'
@@ -373,13 +373,13 @@ function avance(a: Agente): number {
   return Math.min(0.92, 0.08 + a.pasos / 14)
 }
 
-const GUIA = `# OptimizerSen6 (mod activo)
+const GUIA = `# Optimizer Model (mod activo)
 Ahorrá tokens sin perder calidad:
-- Delegá a un subagente (Agent) las tareas mecánicas o repetitivas: buscar, listar, renombrar, contar, transcribir, verificar archivos, inventarios. OptimizerSen6 les asigna Haiku o Sonnet solo; no pases \`model\` salvo que haga falta otro.
+- Delegá a un subagente (Agent) las tareas mecánicas o repetitivas: buscar, listar, renombrar, contar, transcribir, verificar archivos, inventarios. Optimizer Model les asigna Haiku o Sonnet solo; no pases \`model\` salvo que haga falta otro.
 - Lo creativo y lo delicado (guiones, diseño, decisiones, depurar) lo hacés vos.
 - Para leer o resumir textos largos (transcripciones, PDFs, páginas) usá una herramienta de Gemini si está disponible (por ejemplo mcp__llms__ask_gemini) en vez de meter todo en tu contexto.
 - Voz, transcripción y video van por las herramientas locales del proyecto (TTS, Whisper, HyperFrames, FFmpeg), no por el modelo.
-- Para trabajos grandes de varios pasos, sugerí \`/optimizersen6:flujo <tarea>\`: planifica, reparte entre obreros por nivel (Haiku, Sonnet, Opus, Fable) y revisa.`
+- Para trabajos grandes de varios pasos, sugerí \`/optimizer-model:flujo <tarea>\`: planifica, reparte entre obreros por nivel (Haiku, Sonnet, Opus, Fable) y revisa.`
 
 // Se abre solo la primera vez que hay algo que mostrar; después, con /optimizer.
 let isPanelVisto = false
@@ -399,12 +399,12 @@ export const register: Register = on => {
     const r = await next(e)
     await $.command.register({
       name: 'optimizer',
-      description: 'OptimizerSen6: abrir el panel; "on" / "off" activa o pausa el ruteo de modelos; "cerrar" cierra el panel',
+      description: 'Optimizer Model: abrir el panel; "on" / "off" activa o pausa el ruteo de modelos; "cerrar" cierra el panel',
     })
     await $.tool.register({
       name: 'progreso',
       description:
-        'Reporta el avance de /flujo a la barra sobre el prompt y al panel de OptimizerSen6. ' +
+        'Reporta el avance de /flujo a la barra sobre el prompt y al panel de Optimizer Model. ' +
         'Llamala al presentar el plan (title, total, tasks, phase "delegate"), cada vez que aceptás una tarea (done), ' +
         'al cambiar de fase o re-planificar (tasks), y una vez al final con finished: true. Lo que no pases conserva su valor. ' +
         'Solo para la sesión principal: los obreros reportan con `paso`.',
@@ -470,18 +470,18 @@ export const register: Register = on => {
       return {
         text:
           arg === 'on'
-            ? 'OptimizerSen6 activo: elige el modelo de cada subagente.'
-            : 'OptimizerSen6 en pausa: los subagentes usan su modelo por defecto.',
+            ? 'Optimizer Model activo: elige el modelo de cada subagente.'
+            : 'Optimizer Model en pausa: los subagentes usan su modelo por defecto.',
       }
     }
     if (arg === 'cerrar') {
       await $.ui.close({ id: PANE })
 
-      return { text: 'Panel de OptimizerSen6 cerrado.' }
+      return { text: 'Panel de Optimizer Model cerrado.' }
     }
     await abrir($)
 
-    return { text: 'Panel de OptimizerSen6 abierto.' }
+    return { text: 'Panel de Optimizer Model abierto.' }
   })
 
   on('prompt.compose', async ($, e, next) => {
@@ -490,11 +490,11 @@ export const register: Register = on => {
       return r
     }
 
-    return { sections: [...r.sections, { id: 'optimizersen6:guia', text: GUIA, scope: 'session' as const }] }
+    return { sections: [...r.sections, { id: 'optimizer-model:guia', text: GUIA, scope: 'session' as const }] }
   })
 
   // /flujo reporta el plan y el avance; solo vale desde la sesión principal.
-  on('tool.call', { tool: 'mcp__optimizersen6__progreso' }, async ($, e) => {
+  on('tool.call', { tool: 'mcp__optimizer-model__progreso' }, async ($, e) => {
     if (e.agentId) return { result: 'ignorado: solo la sesión principal reporta el flujo' }
     const entrada = e as unknown as EntradaProgreso
     const prev = await read($, flujo)
@@ -510,7 +510,7 @@ export const register: Register = on => {
   })
 
   // El avance propio de un obrero: corre en su loop, así que agentId lo nombra.
-  on('tool.call', { tool: 'mcp__optimizersen6__paso' }, async ($, e) => {
+  on('tool.call', { tool: 'mcp__optimizer-model__paso' }, async ($, e) => {
     const entrada = e as unknown as { done?: number; total?: number; note?: string }
     if (!e.agentId) return { result: 'ignorado: solo los obreros reportan pasos' }
     await cambiar($, e.agentId, a => {
@@ -576,7 +576,7 @@ export const register: Register = on => {
     return next(e)
   })
 
-  // Cada subagente: OptimizerSen6 elige su modelo si es genérico y nadie lo fijó.
+  // Cada subagente: Optimizer Model elige su modelo si es genérico y nadie lo fijó.
   on('agent.spawn', async ($, e, next) => {
     const activo = await read($, isActivo)
     const nivel = nivelDe(e.subagentType)

@@ -1,11 +1,11 @@
 ---
 name: flujo
-description: Flujo orquestado con ahorro de tokens (OptimizerSen6). El modelo principal planifica, decide el diseño, reparte el trabajo entre obreros por nivel (ligero = Haiku, medio = Sonnet, cuidadoso / pesado = Opus, fable = Fable), manda lecturas largas a Gemini y revisa todo lo que entregan. Usar con /flujo <tarea>.
+description: Flujo orquestado con ahorro de tokens (Optimizer Model). El modelo principal planifica, decide el diseño, reparte el trabajo entre obreros por nivel (ligero = Haiku, medio = Sonnet, cuidadoso / pesado = Opus, fable = Fable), manda lecturas largas a Gemini y revisa todo lo que entregan. Usar con /flujo <tarea>.
 disable-model-invocation: true
 argument-hint: <tarea>
 ---
 
-# Flujo (OptimizerSen6)
+# Flujo (Optimizer Model)
 
 Sos el **orquestador**. Pensás, planificás, decidís y revisás; los obreros ejecutan. No hagas el trabajo de un obrero ni dejes que un obrero haga el tuyo. La meta es doble: **el resultado bien a la primera** y **el menor gasto de tokens que lo logre**.
 
@@ -13,13 +13,13 @@ Tarea del usuario: $ARGUMENTS
 
 ## 0. Antes de arrancar
 
-- Los obreros tienen que existir: `optimizersen6:obrero-ligero`, `optimizersen6:obrero-medio`, `optimizersen6:obrero-cuidadoso`, `optimizersen6:obrero-pesado`, `optimizersen6:obrero-fable`. Si la herramienta Agent no los lista, pará y avisale al usuario.
+- Los obreros tienen que existir: `optimizer-model:obrero-ligero`, `optimizer-model:obrero-medio`, `optimizer-model:obrero-cuidadoso`, `optimizer-model:obrero-pesado`, `optimizer-model:obrero-fable`. Si la herramienta Agent no los lista, pará y avisale al usuario.
 - Los obreros **no ven esta conversación ni la memoria del usuario**. Las reglas de CLAUDE.md o de la memoria que apliquen a la tarea (formato, tono, prohibiciones, convenciones) van copiadas en cada brief.
 - Si hay que decidir algo, dale al usuario una recomendación y una sola pregunta, no un menú.
 
 ## Barra de progreso
 
-Mantené al día `mcp__optimizersen6__progreso` (si está diferida, cargala con ToolSearch `select:mcp__optimizersen6__progreso`; si no existe, seguí sin decir nada). Llamala:
+Mantené al día `mcp__optimizer-model__progreso` (si está diferida, cargala con ToolSearch `select:mcp__optimizer-model__progreso`; si no existe, seguí sin decir nada). Llamala:
 - al presentar el plan: `title` (pocas palabras), `total` (cantidad de tareas de obreros), `tasks` (`[{ title, tier, after }]` en orden; `tier` es ligero, medio, cuidadoso, pesado o fable; `after` los números de las tareas de las que depende), `phase: "delegate"` (o `"design"` mientras estés en la sección 2);
 - cada vez que aceptes una tarea en la revisión: `done` (aceptadas hasta ahora); pasá `phase` a `"review"` mientras revisás;
 - si re-planificás: los nuevos `tasks` y `total`;
@@ -60,11 +60,11 @@ Elegí el nivel **más barato que haga bien la tarea a la primera**. Rehacer cue
 
 | Nivel | Obrero | Modelo | Para qué |
 |-------|--------|--------|----------|
-| Ligero | `optimizersen6:obrero-ligero` | Haiku 5.5 | Mecánico y repetitivo: buscar, listar, renombrar, mover, contar, inventarios, correr scripts (transcripción, voz, render) y reportar, ediciones obvias, resumir documentos largos vía Gemini |
-| Medio | `optimizersen6:obrero-medio` | Sonnet 5.5 · medium | Estándar: funciones nuevas claras, arreglos con causa conocida, textos y descripciones, auditorías, cambios en pocos archivos |
-| Cuidadoso | `optimizersen6:obrero-cuidadoso` | Opus 5.5 · high | Delicado con camino claro: refactors de varios archivos, arreglos que no pueden romper nada, muchos casos borde |
-| Pesado | `optimizersen6:obrero-pesado` | Opus 5.5 · xhigh | Entender y encontrar: código desconocido, causa raíz poco clara, arquitectura no obvia |
-| Fable | `optimizersen6:obrero-fable` | Fable 5.1 · high | Reserva: lo más difícil, bugs que resistieron al pesado, diseño puntual si el usuario lo pide |
+| Ligero | `optimizer-model:obrero-ligero` | Haiku 5.5 | Mecánico y repetitivo: buscar, listar, renombrar, mover, contar, inventarios, correr scripts (transcripción, voz, render) y reportar, ediciones obvias, resumir documentos largos vía Gemini |
+| Medio | `optimizer-model:obrero-medio` | Sonnet 5.5 · medium | Estándar: funciones nuevas claras, arreglos con causa conocida, textos y descripciones, auditorías, cambios en pocos archivos |
+| Cuidadoso | `optimizer-model:obrero-cuidadoso` | Opus 5.5 · high | Delicado con camino claro: refactors de varios archivos, arreglos que no pueden romper nada, muchos casos borde |
+| Pesado | `optimizer-model:obrero-pesado` | Opus 5.5 · xhigh | Entender y encontrar: código desconocido, causa raíz poco clara, arquitectura no obvia |
+| Fable | `optimizer-model:obrero-fable` | Fable 5.1 · high | Reserva: lo más difícil, bugs que resistieron al pesado, diseño puntual si el usuario lo pide |
 
 Además, sin obrero:
 - **Gemini** (si hay una herramienta disponible, por ejemplo `mcp__llms__ask_gemini`): resumir o extraer de textos largos cuando solo necesitás el resumen. Más barato que leerlo vos.
@@ -78,7 +78,7 @@ Criterios:
 
 ## 4. Delegar
 
-- Usá la herramienta Agent con `subagent_type` = el nombre exacto del obrero como lo lista la herramienta (`optimizersen6:obrero-ligero`, etc.). Las tareas independientes van en paralelo en un mismo mensaje; las dependientes, encadenadas.
+- Usá la herramienta Agent con `subagent_type` = el nombre exacto del obrero como lo lista la herramienta (`optimizer-model:obrero-ligero`, etc.). Las tareas independientes van en paralelo en un mismo mensaje; las dependientes, encadenadas.
 - Cada brief es autosuficiente: rutas de archivos, la especificación de diseño decidida, las reglas que aplican y la verificación exacta esperada.
 - Briefs cortos: pegá esta tarea, no el plan entero.
 - No implementes en paralelo con los obreros. Mientras corren, prepará los próximos briefs o la lista de revisión.

@@ -34,7 +34,7 @@ export type Flujo = {
 
 declare module 'claude-code' {
   interface PluginState {
-    optimizersen6: {
+    'optimizer-model': {
       agentes: Agente[]
       flujo: Flujo | null
       ahora: number

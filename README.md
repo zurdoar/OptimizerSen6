@@ -1,60 +1,119 @@
-# OptimizerSen6
+<p align="center">
+  <img src="assets/banner.svg" alt="Optimizer Model for Claude: gastá menos tokens, mismo resultado" width="100%">
+</p>
 
-Un mod para [Claude Code](https://claude.com/claude-code) que **ahorra tokens sin bajar la calidad** y te muestra en todo momento **qué modelo y qué herramienta están trabajando**.
+<p align="center">
+  <img alt="Claude Code" src="https://img.shields.io/badge/Claude_Code-mod-D97757?style=for-the-badge">
+  <img alt="Versión" src="https://img.shields.io/github/v/tag/zurdoar/optimizer-model-for-claude?label=versi%C3%B3n&style=for-the-badge&color=8B7CF6">
+  <img alt="Licencia MIT" src="https://img.shields.io/badge/licencia-MIT-34C38F?style=for-the-badge">
+  <img alt="En español" src="https://img.shields.io/badge/idioma-espa%C3%B1ol-4C8DF6?style=for-the-badge">
+</p>
 
-## Qué hace
+<p align="center">
+  <b>Un mod para Claude Code que manda cada tarea al modelo justo</b><br>
+  Lo mecánico a <b>Haiku</b>, lo general a <b>Sonnet</b>, lo difícil a <b>Opus</b>, y un panel con muñecos Claude para ver quién trabaja en cada momento.
+</p>
 
-**1. Elige el modelo justo para cada subagente.** Las tareas mecánicas (buscar, listar, renombrar, transcribir, inventarios) van a **Haiku**, las generales a **Sonnet**, y lo creativo o delicado (guiones, diseño, depurar) se queda en el modelo principal. Lo decide con reglas fijas, sin gastar tokens en decidir. Nunca toca un agente que ya trae su propio modelo.
+<p align="center">
+  <a href="#-instalar">Instalar</a> ·
+  <a href="#-qué-hace">Qué hace</a> ·
+  <a href="#-los-obreros">Los obreros</a> ·
+  <a href="#-el-panel">El panel</a> ·
+  <a href="#-comandos">Comandos</a>
+</p>
 
-**2. `/optimizersen6:flujo <tarea>`: planifica, reparte y revisa.** El modelo principal arma el plan, reparte el trabajo entre obreros por nivel y revisa todo lo que entregan antes de aceptarlo:
+---
 
-| Nivel | Modelo | Para qué |
-| --- | --- | --- |
-| ligero | Haiku 5.5 | mecánico y repetitivo, correr scripts, resumir lecturas largas vía Gemini |
-| medio | Sonnet 5.5 · medium | trabajo estándar, textos, auditorías |
-| cuidadoso | Opus 5.5 · high | lo delicado que no puede romper nada |
-| pesado | Opus 5.5 · xhigh | entender código difícil, depurar la causa raíz |
-| fable | Fable 5.1 · high | solo lo más difícil |
+## 💡 El problema
 
-**3. Un panel con muñecos Claude.** Cada agente tiene su tarjeta, con un Claude en pixel art que lleva el sombrero de su modelo (casco para Opus, gorro marinero para Sonnet, gorra para Haiku, mago para Fable). La tarjeta muestra el rol, el modelo y el esfuerzo, lo que está haciendo en ese momento (Whisper, Gemini, FFmpeg, HyperFrames, terminal…), el contexto, los tokens, el costo estimado, el tiempo y una barra de avance. Las tareas se agrupan en curso, terminadas y en espera. Mientras corre `/flujo`, arriba de la caja de texto aparece una barra con el avance del plan.
+Usar el modelo más potente para todo es como mandar al ingeniero jefe a renombrar archivos: **funciona, pero sale carísimo.** Buscar, listar, transcribir o correr un script no necesita el modelo más caro. Y cuando bajás de modelo a mano, a veces el resultado sale mal y gastás el doble en arreglarlo.
 
-**4. Aprovecha Gemini y las herramientas locales.** Si tenés una herramienta de Gemini conectada (por ejemplo un MCP con `ask_gemini`), las lecturas largas se resumen ahí. La voz, la transcripción y el render se hacen con los scripts del proyecto, no con el modelo.
+**Optimizer Model for Claude** decide por vos qué modelo va en cada tarea: barato donde alcanza y potente donde hace falta.
 
-## Instalar
+## ⚡ Instalar
 
-En Claude Code, en la terminal:
+En Claude Code (terminal):
 
 ```
-/plugin install optimizersen6 --marketplace zurdoar/OptimizerSen6
+/plugin install optimizer-model --marketplace zurdoar/optimizer-model-for-claude
 ```
 
-Respondé `y` para agregar el marketplace y elegí el alcance **user**, así se activa en todos los chats.
+Respondé `y` para agregar el marketplace y elegí el alcance **user**: así queda activo en **todos tus chats**.
+
+<details>
+<summary><b>Otras formas de instalarlo</b></summary>
 
 Desde una consola:
 
 ```bash
-claude plugin install optimizersen6 --marketplace zurdoar/OptimizerSen6
+claude plugin install optimizer-model --marketplace zurdoar/optimizer-model-for-claude
 ```
 
-En la app de escritorio, donde `/plugin` no está disponible: tocá **+** al lado de la caja de texto → **Plugins** → **Add marketplace** con `zurdoar/OptimizerSen6` → **Add plugin**.
+En la **app de escritorio**: tocá **+** al lado de la caja de texto → **Plugins** → **Add marketplace** → `zurdoar/optimizer-model-for-claude` → **Add plugin**.
 
-## Comandos
+</details>
+
+## ✨ Qué hace
+
+| | |
+| --- | --- |
+| 🧭 **Ruteo automático** | Cada subagente va al modelo que alcanza para su tarea. Lo decide con reglas fijas: **no gasta tokens en decidir**. Nunca toca un agente que ya trae su propio modelo. |
+| 🛠️ **`/flujo`** | El modelo principal planifica, reparte el trabajo entre cinco obreros por nivel y **revisa todo lo que entregan** antes de aceptarlo. |
+| 👾 **Panel en vivo** | Cada agente tiene una tarjeta con su muñeco Claude, el modelo, la herramienta que está usando, los tokens, el costo y el tiempo. |
+| 📖 **Gemini para lecturas largas** | Si tenés Gemini conectado, las transcripciones, PDFs y páginas largas se resumen ahí, sin llenar el contexto de Claude. |
+| 🎛️ **Herramientas locales** | La voz, la transcripción y el render se hacen con los scripts del proyecto (TTS, Whisper, FFmpeg, HyperFrames), no con el modelo. |
+
+## 👷 Los obreros
+
+<p align="center">
+  <img src="assets/obreros.svg" alt="Los cinco obreros: ligero (Haiku), medio (Sonnet), cuidadoso y pesado (Opus), fable (Fable)" width="100%">
+</p>
+
+`/optimizer-model:flujo <tarea>` elige siempre **el nivel más barato que haga bien la tarea a la primera**, porque rehacer cuesta más que acertar. Lo creativo (guiones, títulos, textos para el público) nunca baja de Sonnet, y el juicio final lo da siempre el modelo principal.
+
+## 👀 El panel
+
+<p align="center">
+  <img src="assets/panel.svg" alt="Panel de Optimizer Model con tarjetas de agentes" width="620">
+</p>
+
+Cada muñeco lleva el sombrero de su modelo: 🪖 **casco** para Opus, ⚓ **gorro marinero** para Sonnet, 🧢 **gorra** para Haiku y 🧙 **mago** para Fable. Mientras corre `/flujo`, arriba de la caja de texto aparece una **barra con el avance del plan**.
+
+## ⌨️ Comandos
 
 | Comando | Qué hace |
 | --- | --- |
-| `/optimizersen6:flujo <tarea>` | planifica, reparte entre obreros y revisa |
-| `/optimizer` | abre el panel |
-| `/optimizer off` · `/optimizer on` | pausa o reactiva el ruteo de modelos |
-| `/optimizer cerrar` | cierra el panel |
+| `/optimizer-model:flujo <tarea>` | Planifica, reparte entre obreros y revisa |
+| `/optimizer` | Abre el panel |
+| `/optimizer off` · `/optimizer on` | Pausa o reactiva el ruteo de modelos |
+| `/optimizer cerrar` | Cierra el panel |
 
 El panel se abre solo la primera vez que arranca un subagente o un plan de `/flujo`.
 
-## Notas
+## ❓ Preguntas frecuentes
 
-- El costo de cada tarjeta es una **estimación** hecha con los tokens y los precios públicos de cada modelo. El total de la sesión es el que lleva Claude Code.
-- La conversación principal no cambia de modelo: hacerlo a mitad de una charla rompe la caché y termina costando más. El ahorro está en los subagentes.
-- En la terminal el panel se ve en texto, sin muñecos.
+<details>
+<summary><b>¿Cambia el modelo de mi conversación principal?</b></summary>
 
-## Créditos
+No. Cambiar de modelo a mitad de una charla rompe la caché y termina costando **más**. El ahorro está en los subagentes, que arrancan de cero.
+</details>
 
-La habilidad `/flujo` y los obreros están adaptados de [savvy-flow](https://github.com/johnnyvizz/claude-kit) de johnnyvizz (MIT), con los niveles reasignados a modelos más baratos donde alcanza. Licencia MIT; ver [LICENSE](LICENSE).
+<details>
+<summary><b>¿El costo que muestra es exacto?</b></summary>
+
+El de cada tarjeta es una **estimación** hecha con los tokens y los precios públicos de cada modelo. El total de la sesión es el que lleva Claude Code.
+</details>
+
+<details>
+<summary><b>¿Funciona en la terminal?</b></summary>
+
+Sí. En la terminal el panel se ve en texto, sin muñecos. En la app de escritorio se ve con los dibujos.
+</details>
+
+## 🙌 Créditos
+
+Hecho por **[Zurdo](https://github.com/zurdoar)**. La habilidad `/flujo` y los obreros están adaptados de [savvy-flow](https://github.com/johnnyvizz/claude-kit) de johnnyvizz (MIT), con los niveles reasignados a modelos más baratos donde alcanza.
+
+Licencia [MIT](LICENSE). Proyecto independiente, **no afiliado a Anthropic**. Claude y Claude Code son marcas de Anthropic.
+
+<p align="center"><sub>Si te sirvió, dejale una ⭐ al repo.</sub></p>
