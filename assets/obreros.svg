@@ -5,15 +5,15 @@
 <text x="138.0" y="200" text-anchor="middle" font-family="'Segoe UI', -apple-system, Helvetica, Arial, sans-serif" font-size="24" font-weight="800" fill="#34C38F">ligero</text>
 <text x="138.0" y="228" text-anchor="middle" font-family="'JetBrains Mono', 'Cascadia Code', Consolas, monospace" font-size="15" fill="#EDE6F5">Haiku 5.5</text>
 <text x="138.0" y="264" text-anchor="middle" font-family="'Segoe UI', -apple-system, Helvetica, Arial, sans-serif" font-size="15" fill="#A79DB3">buscar, listar, renombrar,</text>
-<text x="138.0" y="286" text-anchor="middle" font-family="'Segoe UI', -apple-system, Helvetica, Arial, sans-serif" font-size="15" fill="#A79DB3">transcribir, correr scripts</text>
+<text x="138.0" y="286" text-anchor="middle" font-family="'Segoe UI', -apple-system, Helvetica, Arial, sans-serif" font-size="15" fill="#A79DB3">ordenar, correr tareas</text>
 </g><g>
 <rect x="274" y="20" width="236" height="300" rx="18" fill="#1E1824" stroke="#4C8DF6" stroke-opacity="0.55" stroke-width="2"/>
 <rect x="274" y="20" width="236" height="8" rx="4" fill="#4C8DF6"/>
 <g opacity="1.0" shape-rendering="crispEdges"><rect x="378.0" y="52" width="28" height="7" fill="#F4F6FA"/><rect x="364.0" y="59" width="56" height="14" fill="#F4F6FA"/><rect x="364.0" y="73" width="56" height="7" fill="#3B6FD8"/><rect x="385.0" y="52" width="14" height="7" fill="#3B6FD8"/><rect x="357.0" y="80" width="70" height="42" fill="#D97757"/><rect x="343.0" y="94" width="14" height="14" fill="#D97757"/><rect x="427.0" y="94" width="14" height="14" fill="#D97757"/><rect x="371.0" y="87" width="7" height="14" fill="#2B1A14"/><rect x="406.0" y="87" width="7" height="14" fill="#2B1A14"/><rect x="364.0" y="122" width="7" height="14" fill="#D97757"/><rect x="378.0" y="122" width="7" height="14" fill="#D97757"/><rect x="399.0" y="122" width="7" height="14" fill="#D97757"/><rect x="413.0" y="122" width="7" height="14" fill="#D97757"/></g>
 <text x="392.0" y="200" text-anchor="middle" font-family="'Segoe UI', -apple-system, Helvetica, Arial, sans-serif" font-size="24" font-weight="800" fill="#4C8DF6">medio</text>
 <text x="392.0" y="228" text-anchor="middle" font-family="'JetBrains Mono', 'Cascadia Code', Consolas, monospace" font-size="15" fill="#EDE6F5">Sonnet 5.5</text>
-<text x="392.0" y="264" text-anchor="middle" font-family="'Segoe UI', -apple-system, Helvetica, Arial, sans-serif" font-size="15" fill="#A79DB3">trabajo estándar, textos,</text>
-<text x="392.0" y="286" text-anchor="middle" font-family="'Segoe UI', -apple-system, Helvetica, Arial, sans-serif" font-size="15" fill="#A79DB3">auditorías, cambios claros</text>
+<text x="392.0" y="264" text-anchor="middle" font-family="'Segoe UI', -apple-system, Helvetica, Arial, sans-serif" font-size="15" fill="#A79DB3">textos, mails, resúmenes,</text>
+<text x="392.0" y="286" text-anchor="middle" font-family="'Segoe UI', -apple-system, Helvetica, Arial, sans-serif" font-size="15" fill="#A79DB3">cambios claros</text>
 </g><g>
 <rect x="528" y="20" width="236" height="300" rx="18" fill="#1E1824" stroke="#E8913A" stroke-opacity="0.55" stroke-width="2"/>
 <rect x="528" y="20" width="236" height="8" rx="4" fill="#E8913A"/>

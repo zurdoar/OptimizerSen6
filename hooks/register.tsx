@@ -376,9 +376,9 @@ function avance(a: Agente): number {
 const GUIA = `# Optimizer Model (mod activo)
 Ahorrá tokens sin perder calidad:
 - Delegá a un subagente (Agent) las tareas mecánicas o repetitivas: buscar, listar, renombrar, contar, transcribir, verificar archivos, inventarios. Optimizer Model les asigna Haiku o Sonnet solo; no pases \`model\` salvo que haga falta otro.
-- Lo creativo y lo delicado (guiones, diseño, decisiones, depurar) lo hacés vos.
-- Para leer o resumir textos largos (transcripciones, PDFs, páginas) usá una herramienta de Gemini si está disponible (por ejemplo mcp__llms__ask_gemini) en vez de meter todo en tu contexto.
-- Voz, transcripción y video van por las herramientas locales del proyecto (TTS, Whisper, HyperFrames, FFmpeg), no por el modelo.
+- Lo creativo y lo delicado (textos para el público, diseño, decisiones, depurar) lo hacés vos.
+- Para leer o resumir textos largos (PDFs, informes, páginas, transcripciones) usá una herramienta de Gemini si está disponible (por ejemplo mcp__llms__ask_gemini) en vez de meter todo en tu contexto.
+- Lo que ya hace una herramienta del proyecto (tests, builds, conversores, scripts) lo corre la herramienta, no el modelo.
 - Para trabajos grandes de varios pasos, sugerí \`/optimizer-model:flujo <tarea>\`: planifica, reparte entre obreros por nivel (Haiku, Sonnet, Opus, Fable) y revisa.`
 
 // Se abre solo la primera vez que hay algo que mostrar; después, con /optimizer.

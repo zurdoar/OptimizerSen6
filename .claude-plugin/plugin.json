@@ -1,6 +1,6 @@
 {
   "name": "optimizer-model",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Optimizer Model for Claude: ahorra tokens sin perder calidad. Elige el modelo justo para cada subagente (Haiku, Sonnet, Opus, Fable), trae /flujo para planificar, repartir y revisar con obreros por nivel, y un panel con muñecos Claude que muestra qué modelo y herramienta trabaja, tokens, costo y progreso.",
   "author": { "name": "Emanuel (Zurdo)", "url": "https://github.com/zurdoar" },
   "license": "MIT",

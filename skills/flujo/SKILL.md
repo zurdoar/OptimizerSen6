@@ -31,7 +31,7 @@ Al delegar, usá el `title` de la tarea tal cual como `description` de la herram
 
 1. Leé lo necesario para entender el pedido en contexto: archivos relevantes, CLAUDE.md, README, la memoria. Para búsquedas amplias usá un `obrero-ligero`, no tu propio contexto.
    - Si la carpeta no tiene proyecto (vacía, sin código ni README), es un **proyecto nuevo**: seguí la sección 1a y después volvé al paso 3.
-2. Decidí si la tarea **toca diseño** (cualquier cosa visible: UI, imágenes, videos, paletas, tipografía, textos que ve el público). Si sí → sección 2 antes de implementar.
+2. Decidí si la tarea **toca diseño** (cualquier cosa visible: UI, imágenes, paletas, tipografía, textos que ve el público). Si sí → sección 2 antes de implementar.
 3. Partí el trabajo en **tareas**, cada una con:
    - un brief autosuficiente (qué, dónde, restricciones, cuándo está terminada, cómo se verifica);
    - dependencias explícitas;
@@ -60,7 +60,7 @@ Elegí el nivel **más barato que haga bien la tarea a la primera**. Rehacer cue
 
 | Nivel | Obrero | Modelo | Para qué |
 |-------|--------|--------|----------|
-| Ligero | `optimizer-model:obrero-ligero` | Haiku 5.5 | Mecánico y repetitivo: buscar, listar, renombrar, mover, contar, inventarios, correr scripts (transcripción, voz, render) y reportar, ediciones obvias, resumir documentos largos vía Gemini |
+| Ligero | `optimizer-model:obrero-ligero` | Haiku 5.5 | Mecánico y repetitivo: buscar, listar, renombrar, mover, contar, inventarios, correr tareas y scripts del proyecto y reportar, ediciones obvias, resumir documentos largos vía Gemini |
 | Medio | `optimizer-model:obrero-medio` | Sonnet 5.5 · medium | Estándar: funciones nuevas claras, arreglos con causa conocida, textos y descripciones, auditorías, cambios en pocos archivos |
 | Cuidadoso | `optimizer-model:obrero-cuidadoso` | Opus 5.5 · high | Delicado con camino claro: refactors de varios archivos, arreglos que no pueden romper nada, muchos casos borde |
 | Pesado | `optimizer-model:obrero-pesado` | Opus 5.5 · xhigh | Entender y encontrar: código desconocido, causa raíz poco clara, arquitectura no obvia |
@@ -68,12 +68,12 @@ Elegí el nivel **más barato que haga bien la tarea a la primera**. Rehacer cue
 
 Además, sin obrero:
 - **Gemini** (si hay una herramienta disponible, por ejemplo `mcp__llms__ask_gemini`): resumir o extraer de textos largos cuando solo necesitás el resumen. Más barato que leerlo vos.
-- **Herramientas locales**: voz, transcripción, render y mezcla nunca las "hace" un modelo; las corre un obrero ligero con el script del proyecto.
+- **Herramientas locales**: lo que ya hace una herramienta (tests, builds, conversores, scripts) nunca lo "hace" un modelo; lo corre un obrero ligero con esa herramienta.
 
 Criterios:
 - Si dudás entre dos niveles, tomá el más alto. Excepción: fable es reserva; usalo solo si la tarea cumple claramente sus criterios, si no, pesado.
 - Pesado o cuidadoso depende del tipo de dificultad: hace falta entender → pesado; hace falta prolijidad → cuidadoso. Si hacen falta las dos, son dos tareas: el pesado investiga y deja un brief preciso, el cuidadoso lo implementa.
-- Lo **creativo y de marca** (guiones, ganchos, títulos, textos para el público) no baja de medio, y si es la pieza central, lo escribís vos o el cuidadoso.
+- Lo **creativo y de marca** (textos para el público, títulos, ideas) no baja de medio, y si es la pieza central, lo escribís vos o el cuidadoso.
 - El juicio final (sección 5) nunca se delega.
 
 ## 4. Delegar

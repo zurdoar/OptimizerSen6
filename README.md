@@ -26,7 +26,7 @@
 
 ## 💡 El problema
 
-Usar el modelo más potente para todo es como mandar al ingeniero jefe a renombrar archivos: **funciona, pero sale carísimo.** Buscar, listar, transcribir o correr un script no necesita el modelo más caro. Y cuando bajás de modelo a mano, a veces el resultado sale mal y gastás el doble en arreglarlo.
+Usar el modelo más potente para todo es como mandar al ingeniero jefe a renombrar archivos: **funciona, pero sale carísimo.** Buscar, listar, ordenar archivos o correr una tarea repetida no necesita el modelo más caro. Programes, escribas, investigues o armes tu negocio, pasa lo mismo. Y cuando bajás de modelo a mano, a veces el resultado sale mal y gastás el doble en arreglarlo.
 
 **Optimizer Model for Claude** decide por vos qué modelo va en cada tarea: barato donde alcanza y potente donde hace falta.
 
@@ -60,8 +60,8 @@ En la **app de escritorio**: tocá **+** al lado de la caja de texto → **Plugi
 | 🧭 **Ruteo automático** | Cada subagente va al modelo que alcanza para su tarea. Lo decide con reglas fijas: **no gasta tokens en decidir**. Nunca toca un agente que ya trae su propio modelo. |
 | 🛠️ **`/flujo`** | El modelo principal planifica, reparte el trabajo entre cinco obreros por nivel y **revisa todo lo que entregan** antes de aceptarlo. |
 | 👾 **Panel en vivo** | Cada agente tiene una tarjeta con su muñeco Claude, el modelo, la herramienta que está usando, los tokens, el costo y el tiempo. |
-| 📖 **Gemini para lecturas largas** | Si tenés Gemini conectado, las transcripciones, PDFs y páginas largas se resumen ahí, sin llenar el contexto de Claude. |
-| 🎛️ **Herramientas locales** | La voz, la transcripción y el render se hacen con los scripts del proyecto (TTS, Whisper, FFmpeg, HyperFrames), no con el modelo. |
+| 📖 **Gemini para lecturas largas** | Si tenés Gemini conectado, los PDFs, informes, páginas y documentos largos se resumen ahí, sin llenar el contexto de Claude. |
+| 🎛️ **Herramientas locales** | Lo que ya hace una herramienta (tests, builds, conversores, scripts) lo corre la herramienta, no el modelo. |
 
 ## 👷 Los obreros
 
@@ -69,7 +69,7 @@ En la **app de escritorio**: tocá **+** al lado de la caja de texto → **Plugi
   <img src="assets/obreros.svg" alt="Los cinco obreros: ligero (Haiku), medio (Sonnet), cuidadoso y pesado (Opus), fable (Fable)" width="100%">
 </p>
 
-`/optimizer-model:flujo <tarea>` elige siempre **el nivel más barato que haga bien la tarea a la primera**, porque rehacer cuesta más que acertar. Lo creativo (guiones, títulos, textos para el público) nunca baja de Sonnet, y el juicio final lo da siempre el modelo principal.
+`/optimizer-model:flujo <tarea>` elige siempre **el nivel más barato que haga bien la tarea a la primera**, porque rehacer cuesta más que acertar. Lo creativo (textos para el público, ideas, diseño) nunca baja de Sonnet, y el juicio final lo da siempre el modelo principal.
 
 ## 👀 El panel
 
